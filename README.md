@@ -1,3 +1,3 @@
 # webescapetool
 
-https://matanki-saito.github.io/webescapetool/tool.html
+https://karipe.github.io/paradoxescapetool/tool.html

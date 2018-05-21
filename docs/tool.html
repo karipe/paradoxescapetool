@@ -31,6 +31,7 @@
     });
 
     var CP1252_UCS2_Map = {
+      0x80: 0x20AC,/*()#Currency Symbols*/
       0x82: 0x201A,/*()#SINGLE LOW-9 QUOTATION MARK */
       /* #UNDEFINED 0x81*/
       0x83: 0x0192,/*()#LATIN SMALL LETTER F WITH HOOK */
@@ -65,6 +66,7 @@
     }
 
     var UCS2_CP1252_Map = {
+      0x20AC:0x80,/*()#Currency Symbols*/
       0x201A:0x82,/*()#SINGLE LOW-9 QUOTATION MARK */
       /* #UNDEFINED 0x81*/
       0x0192:0x83,/*()#LATIN SMALL LETTER F WITH HOOK */
@@ -125,7 +127,7 @@
           case 0xA7:
           case 0x24:
           case 0x5B:
-          case 0:
+          case 0x00:
           case 0x5C:
           case 0x20:
           case 0x0D:
@@ -134,11 +136,12 @@
           case 0x7B:
           case 0x7D:
           case 0x40:
-          case 0x3B:
+          //case 0x3B:
           case 0x80:
           case 0x7E:
           case 0xBD:
             escapeChr+=2;
+            high -= 9;
             break;
           default:
             break;
@@ -159,40 +162,28 @@
           case 0x7B:
           case 0x7D:
           case 0x40:
-          case 0x3B:
-          case 0:
+          //case 0x3B:
+          case 0x00:
           case 0x80:
           case 0x7E:
           case 0xBD:
             escapeChr++;
+            low += 15;
             break;
           default:
             break;
         }
 
-        switch(escapeChr){
-          case 0x11:
-            low += 15;
-            break;
-          case 0x12:
-            high -= 9;
-            break;
-          case 0x13:
-            low += 15;
-            high -= 9;
-            break;
-          case 0x10:
-          default:
-            break;
-        }
         result += String.fromCharCode(escapeChr);
 
+        /*
         if(low in CP1252_UCS2_Map){
           low = CP1252_UCS2_Map[low];
         }
         if(high in CP1252_UCS2_Map){
           high = CP1252_UCS2_Map[high];
         }
+        */
 
         result += String.fromCharCode(low);
         result += String.fromCharCode(high);

@@ -16,14 +16,23 @@
 </head>
 <body>
 <!-- Place your content here -->
-<input id="original" placeholder="프랑스"><br>
-<button class="btn">
+<input id="original" placeholder="프랑스""><br>
+<button class="btn" id="copybtn">
     Copy to clipboard
 </button>
 <!-- SCRIPTS -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
 <script>
+    $('#original').keypress(function (e) {
+        var key = e.which;
+        if(key == 13)  // the enter key code
+        {
+            $('#copybtn').click();
+            return false;
+        }
+    });
+
     new ClipboardJS('.btn', {
         text: function(trigger) {
             return A2B_Arr($('#original').val());
